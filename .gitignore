@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+bin/eyeswitch-helper
+*.jpg
+*.jpeg
+.DS_Store
+*.env

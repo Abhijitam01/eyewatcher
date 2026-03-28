@@ -1,0 +1,58 @@
+{
+  "name": "eyeswitch",
+  "version": "1.0.0",
+  "description": "Head-tracking monitor focus switcher for macOS — look at a screen, it gets focus",
+  "license": "MIT",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/eyeswitch.git"
+  },
+  "keywords": ["monitor", "focus", "head-tracking", "webcam", "macos", "accessibility"],
+  "bin": {
+    "eyeswitch": "./bin/eyeswitch"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "bin", "src/native/helper"],
+  "scripts": {
+    "build": "tsc",
+    "build:helper": "clang -framework Cocoa -framework CoreGraphics -framework AppKit -framework ApplicationServices src/native/helper/eyeswitch-helper.m -o bin/eyeswitch-helper 2>&1",
+    "postinstall": "npm run build:helper || echo 'Warning: Native helper build failed. Monitor detection may be limited.'",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": ["darwin"],
+  "dependencies": {
+    "@tensorflow-models/face-landmarks-detection": "^1.0.5",
+    "@tensorflow/tfjs-backend-cpu": "^4.20.0",
+    "@tensorflow/tfjs-node": "^4.20.0",
+    "canvas": "^2.11.2",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "conf": "^12.0.0",
+    "node-webcam": "^0.8.2",
+    "ora": "^8.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "@types/node-webcam": "^0.8.3",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
