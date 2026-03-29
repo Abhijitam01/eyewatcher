@@ -377,7 +377,7 @@ program.action(async (opts: Record<string, unknown>) => {
   const noClick = Boolean(opts['noClick']);
   const verbose = Boolean(opts['verbose']);
 
-  printBanner(version);
+  await printBanner(version);
 
   await runMain(cfg, { forceCalibrate, dryRun, noClick, verbose });
 });

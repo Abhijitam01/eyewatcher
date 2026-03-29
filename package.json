@@ -1,12 +1,12 @@
 {
   "name": "eyeswitch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Head-tracking monitor focus switcher for macOS — look at a screen, it gets focus",
   "license": "MIT",
   "author": "Abhijitam01",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Abhijitam01/eyeswitch.git"
+    "url": "git+https://github.com/Abhijitam01/eyeswitch.git"
   },
   "homepage": "https://eyeswitch.abhijitamdubey.site",
   "bugs": {
@@ -21,7 +21,7 @@
     "accessibility"
   ],
   "bin": {
-    "eyeswitch": "./bin/eyeswitch"
+    "eyeswitch": "bin/eyeswitch"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
