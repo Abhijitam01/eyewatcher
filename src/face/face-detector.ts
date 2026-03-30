@@ -1,7 +1,7 @@
 import * as faceLandmarksDetection from '@tensorflow-models/face-landmarks-detection';
 import '@tensorflow/tfjs-node';
 import * as tf from '@tensorflow/tfjs-core';
-import { createCanvas } from 'canvas';
+import { createCanvas } from '@napi-rs/canvas';
 import type { FrameBuffer, FaceLandmarks, Point3D } from '../types.js';
 
 // ---------------------------------------------------------------------------
@@ -49,7 +49,8 @@ export class FaceDetector {
     }
 
     const canvas = this.frameToCanvas(frame);
-    const faces = await this.detector.estimateFaces(canvas);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const faces = await this.detector.estimateFaces(canvas as any);
 
     if (faces.length === 0) return null;
 
@@ -87,7 +88,8 @@ export class FaceDetector {
   // Internal helpers
   // ---------------------------------------------------------------------------
 
-  private frameToCanvas(frame: FrameBuffer): ReturnType<typeof createCanvas> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private frameToCanvas(frame: FrameBuffer): any {
     const canvas = createCanvas(frame.width, frame.height);
     const ctx = canvas.getContext('2d');
     const imageData = ctx.createImageData(frame.width, frame.height);

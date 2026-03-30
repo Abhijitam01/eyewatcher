@@ -2,7 +2,7 @@ import NodeWebcam from 'node-webcam';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage } from '@napi-rs/canvas';
 import type { FrameBuffer } from '../types.js';
 
 // ---------------------------------------------------------------------------

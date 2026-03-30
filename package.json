@@ -50,13 +50,13 @@
     "win32"
   ],
   "dependencies": {
-    "ffmpeg-static": "^5.2.0",
+    "@napi-rs/canvas": "^0.1.97",
     "@tensorflow-models/face-landmarks-detection": "^1.0.5",
     "@tensorflow/tfjs-backend-cpu": "^4.20.0",
     "@tensorflow/tfjs-node": "^4.20.0",
-    "canvas": "^2.11.2",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
+    "ffmpeg-static": "^5.2.0",
     "node-webcam": "^0.8.2",
     "ora": "^8.0.1",
     "zod": "^3.22.4"
