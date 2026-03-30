@@ -53,7 +53,6 @@
     "@napi-rs/canvas": "^0.1.97",
     "@tensorflow-models/face-landmarks-detection": "^1.0.5",
     "@tensorflow/tfjs-backend-cpu": "^4.20.0",
-    "@tensorflow/tfjs-node": "^4.20.0",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "ffmpeg-static": "^5.2.0",

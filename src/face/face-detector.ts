@@ -1,5 +1,5 @@
 import * as faceLandmarksDetection from '@tensorflow-models/face-landmarks-detection';
-import '@tensorflow/tfjs-node';
+import '@tensorflow/tfjs-backend-cpu';
 import * as tf from '@tensorflow/tfjs-core';
 import { createCanvas } from '@napi-rs/canvas';
 import type { FrameBuffer, FaceLandmarks, Point3D } from '../types.js';
