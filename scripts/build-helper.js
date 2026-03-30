@@ -72,16 +72,26 @@ function buildMacOS() {
 // Windows
 // ---------------------------------------------------------------------------
 function buildWindows() {
+  const prebuilt = path.join(ROOT, 'bin', 'prebuilt', 'eyeswitch-helper.exe');
+  const out      = path.join(BIN_DIR, 'eyeswitch-helper.exe');
+
+  // Use the pre-compiled binary shipped in the npm package (no compiler needed)
+  if (fs.existsSync(prebuilt)) {
+    fs.copyFileSync(prebuilt, out);
+    console.log('  ✓ Using pre-built: bin/prebuilt/eyeswitch-helper.exe');
+    return;
+  }
+
+  // Developer fallback: compile from source when prebuilt is not present
   const src = path.join(SRC_DIR, 'eyeswitch-helper-win.c');
-  const out = path.join(BIN_DIR, 'eyeswitch-helper.exe');
 
   if (!fs.existsSync(src)) {
     throw new Error(`Source file not found: ${src}`);
   }
 
-  // Prefer gcc (MinGW/MSYS2) — widely available on Windows dev machines
+  // Prefer gcc (MinGW/MSYS2)
   if (commandExists('gcc')) {
-    const cmd = `gcc "${src}" -o "${out}" -luser32 -lgdi32`;
+    const cmd = `gcc "${src}" -o "${out}" -luser32 -lgdi32 -DUNICODE -D_UNICODE`;
     run(cmd, 'Compiling Windows native helper with gcc (MinGW)');
     console.log(`  ✓ Built: ${path.relative(ROOT, out)}`);
     return;

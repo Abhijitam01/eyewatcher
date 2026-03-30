@@ -49,6 +49,19 @@ export class FrameCapture {
       throw new Error('FrameCapture is already running');
     }
 
+    // On Windows, node-webcam shells out to ffmpeg. Prepend the bundled
+    // ffmpeg-static binary directory to PATH so no manual install is needed.
+    if (process.platform === 'win32') {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const ffmpegPath = require('ffmpeg-static') as string;
+        const ffmpegDir  = path.dirname(ffmpegPath);
+        process.env.PATH = `${ffmpegDir}${path.delimiter}${process.env.PATH ?? ''}`;
+      } catch {
+        // ffmpeg-static unavailable — user may need to install ffmpeg manually
+      }
+    }
+
     // node-webcam uses imagesnap on macOS and ffmpeg on Windows/Linux.
     // On Windows, the DirectShow (dshow) input format is used via ffmpeg.
     const deviceOpt: string | false = process.platform === 'win32'

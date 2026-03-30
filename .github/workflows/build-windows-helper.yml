@@ -1,0 +1,51 @@
+name: Build Windows native helper
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/native/helper/eyeswitch-helper-win.c'
+  workflow_dispatch: # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MinGW gcc
+        run: choco install mingw --yes
+        shell: pwsh
+
+      - name: Create prebuilt directory
+        run: New-Item -ItemType Directory -Force -Path bin\prebuilt
+        shell: pwsh
+
+      - name: Compile Windows helper
+        run: >
+          gcc src/native/helper/eyeswitch-helper-win.c
+          -o bin/prebuilt/eyeswitch-helper.exe
+          -luser32 -lgdi32 -DUNICODE -D_UNICODE
+        shell: pwsh
+
+      - name: Verify binary
+        run: |
+          if (!(Test-Path "bin\prebuilt\eyeswitch-helper.exe")) {
+            Write-Error "Binary not found after compilation"
+            exit 1
+          }
+          $size = (Get-Item "bin\prebuilt\eyeswitch-helper.exe").Length
+          Write-Host "✓ Built bin/prebuilt/eyeswitch-helper.exe ($size bytes)"
+        shell: pwsh
+
+      - name: Commit prebuilt binary
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bin/prebuilt/eyeswitch-helper.exe
+          git diff --staged --quiet && echo "No changes" || (git commit -m "ci: update prebuilt Windows helper binary" && git push)
+        shell: bash

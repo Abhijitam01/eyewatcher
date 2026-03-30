@@ -50,6 +50,7 @@
     "win32"
   ],
   "dependencies": {
+    "ffmpeg-static": "^5.2.0",
     "@tensorflow-models/face-landmarks-detection": "^1.0.5",
     "@tensorflow/tfjs-backend-cpu": "^4.20.0",
     "@tensorflow/tfjs-node": "^4.20.0",
